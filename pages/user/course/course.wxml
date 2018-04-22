@@ -1,0 +1,11 @@
+<!--pages/user/course/course.wxml-->
+<import src="../../templates/course/course.wxml"/>
+<import src="../../templates/empty/empty.wxml"/>
+
+<view class="container">
+  <view class="content bg">  
+    <!-- 暂无 -->
+    <template wx:if="{{!courseList.data.length}}" is="empty"></template>
+    <template is="course" data="{{...courseList}}"/>
+  </view>
+</view>

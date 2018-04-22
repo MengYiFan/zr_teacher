@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/index/index/index",
+    "pages/binding/index/binding",
+    "pages/user/info/info",
+    "pages/user/history/history",
+    "pages/user/course/course",
+    "pages/help/call/call",
+    "pages/user/attention/attention"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#EB1C25",
+    "navigationBarTitleText": "育商师",
+    "navigationBarTextStyle": "white"
+  }
+}

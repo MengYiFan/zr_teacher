@@ -1,0 +1,146 @@
+/**index.wxss**/
+.index-container {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.index-online {
+  position: relative;
+  overflow: hidden;
+  padding: 50rpx 0;
+  border-bottom: 1rpx solid #f7f7f8;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+
+.index-online-circle {
+  position: relative;
+  width: 200rpx;
+  height: 200rpx;
+  margin: 0 auto;
+  background-color: #ccc;
+  border-radius: 50%;
+}
+
+.common-userInfo-get {
+  width: 200rpx;
+}
+
+.index-online-circle-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.index-online-status {
+  position: absolute;
+  right: 30rpx;
+  top: 58rpx;
+  width: 150rpx;
+  font-size: 26rpx;
+  color: #a6a6a6;
+}
+
+.index-online-status::before {
+  content: '';
+  width: 20rpx;
+  height: 20rpx;
+  display: inline-block;
+  margin: 0 6rpx;
+  border-radius: 50%;
+  transition: all 2s;
+}
+
+.index-online-status button {
+  font-size: 26rpx;
+  padding: 0;
+  background-color: transparent;
+  display: inline;
+  border: none;
+}
+
+.index-online-status.index-online-true::before {
+  background-color: #EB1C25;
+}
+
+.index-online-status.index-online-false::before {
+  background-color: #ffcf00;
+}
+
+.userinfo-nickname {
+  display: block;
+  width: 100%;
+  margin-top: 30rpx;
+  text-align: center;
+}
+
+.row-cells {
+  position: relative;
+  background-color: #fff;
+}
+
+.row-cell {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #f7f7f8;
+}
+
+.row-cell:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.row-cell:active {
+  background: #f7f7f8;
+}
+
+.row-cell-left {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+
+.row-cell-icon {
+  width: 50rpx;
+  height: 50rpx;
+  background-color: #f7f7f8;
+  vertical-align: top;
+}
+
+.row-cell-text {
+  margin-left: 30rpx;
+  font-size: 32rpx;
+  color: #666;
+  vertical-align: bottom;
+  font-weight: 300;
+}
+
+.row-cell-arrow {
+  width: 26rpx;
+  position: relative;
+}
+
+.row-cell-arrow::after {
+  content: " ";
+  display: inline-block;
+  height: 16rpx;
+  width: 16rpx;
+  border-width: 4rpx 4rpx 0 0;
+  border-color: #aaa;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -8rpx;
+  right: 4rpx;
+}

@@ -1,0 +1,66 @@
+/* pages/userInfo/userInfo.wxss */
+.userInfo-container {
+  width: 710rpx;
+  height: calc(100vh - 40rpx);
+  margin: 20rpx;
+  background-color: #fff;
+  padding: 30rpx;
+  box-sizing: border-box;
+  border-radius: 12px;
+}
+
+.userInfo-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  border-bottom: 1rpx solid #e6e6e6;
+  margin: 30rpx 0 20rpx;
+}
+
+.userInfo-header {
+  border-bottom: none;
+  padding: 30rpx 0;
+}
+
+.userInfo-situation {
+  display: inline-flex;
+  flex-direction: column;
+  margin-right: 10rpx;
+  width: 150rpx;
+  align-items: flex-start;
+}
+
+.userInfo-nickname {
+  font-size: 26rpx;
+  color: #999;
+  width: 100%;
+}
+
+.userInfo-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+
+.userInfo-section-title {
+  width: 160rpx;
+  flex: 0 0 160rpx;
+  text-align: left;
+  color: #666;
+  font-size: 26rpx;
+}
+
+.userInfo-picker,
+.userInfo-name-input {
+  font-size: 26rpx;
+  width: 480rpx;
+  overflow: hidden;
+  min-height: 100rpx;
+  box-sizing: border-box;
+  padding: 30rpx 20rpx;
+}
+
+.userInfo-picker {
+  flex: 1 1 480rpx;
+}

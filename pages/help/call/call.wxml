@@ -1,0 +1,66 @@
+<!--pages/help/call/call.wxml-->
+<view class="container">
+  <form 
+      wx:if="{{isShowForm}}"
+      bindsubmit="bindFormSubmit"
+      report-submit
+      class="form-resubmit">
+      <text>抱歉, 该单已被其他老师抢占...</text>
+      <button formType="submit">
+        确定
+      </button>
+  </form>
+  <view class="call-container">
+    <view class="call-live">
+    <!-- <live-player 
+        class="call-live-player"
+        src="rtmp://20200.liveplay.myqcloud.com/live/20200_teach2372" 
+        mode="RTC" autoplay 
+        bindstatechange="playerStatechange" 
+        binderror="error" />
+      <live-pusher 
+        url="rtmp://20200.livepush.myqcloud.com/live/20200_user1?bizid=20200&txSecret=0f9fe97b02beec57fb30ffa22557605c&txTime=5AA5CC61"  -->
+
+      <!-- 收 -->
+      <live-player 
+        class="call-live-player"
+        src="{{userLive}}" 
+        mode="RTC" autoplay />
+      <!-- 发 -->
+      <live-pusher 
+        url="{{teachPusher}}"
+        mode="RTC" autopush
+        enable-camera="{{controler.enableCamera}}"
+        muted="{{controler.muted}}" />
+    </view>
+    <view class="call-list">
+      <view class="call-teacher-info">
+        <image
+          src="{{avatar || 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=286144835,1762883821&fm=27&gp=0.jpg'}}" 
+          class="call-teacher-avatar"></image>
+         <text 
+          class="call-teacher-status {{nick ? '' : 'call-teacher-status-connection'}}">{{nick || '正在连接...'}}</text> 
+      </view>
+      <view class="cell-func-list">
+        <view
+          bindtap="bindCellMutedTap"
+          class="cell-func-item {{controler.muted ? 'cell-func-item-true' : ''}}">
+          <image 
+            class="cell-func-image"
+            style="display: {{controler.muted ? 'none' : 'inline-block'}}"
+            src="../../../images/other/muted.png"></image>
+          <image
+            style="display: {{controler.muted ? 'inline-block' : 'none'}}"
+            class="cell-func-image" 
+            src="../../../images/other/muted2.png"></image>
+        </view>
+        <view class="cell-func-item cell-func-hangup">
+          <image
+            bindtap="bindCallHangupTap"
+            class="cell-func-image" 
+            src="../../../images/other/hangup.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

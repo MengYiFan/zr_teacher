@@ -1,0 +1,57 @@
+/**app.wxss**/
+@import "./public/weui.wxss";
+
+.container {
+  min-height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #F6F7F8;
+  overflow-x: hidden;
+  overflow-y: scroll;
+} 
+
+.content {
+  padding: 20rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.common-title {
+  text-align: center;
+  padding: 30rpx 0;
+  font-size: 42rpx;
+  font-weight: lighter;
+  color: #666;
+}
+
+.common-userInfo-get {
+  width: 100%;
+  font-size: 18rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 8rpx;
+}
+
+.common-btn {
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 82rpx;
+  background-color: #EB1C25;
+  font-size: 30rpx;
+  color: #fff;
+}
+
+.common-btn:active {
+  opacity: .8;
+}
+
+.common-btn-disabled {
+  background-color: #ffd6d8;
+}

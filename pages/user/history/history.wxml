@@ -1,0 +1,30 @@
+<!--pages/teacher/history/history.wxml-->
+<import src="../../templates/empty/empty.wxml"/>
+
+<view class="container teacher-history">
+  <view class="header">
+    <image
+      src="{{userInfo.avatarUrl}}" 
+      class="header-image"></image>
+    <text class="text-overflow header-name">{{userInfo.nickName}}</text>
+    <!-- <text class="text-overflow header-account">账号: 123123</text> -->
+  </view>
+  <view class="teacher-history-title">
+    <image 
+      src="../../../images/phone.png"
+      class="teacher-history-title-icon"></image>
+    最近接单记录
+  </view>
+  <view class="teacher-history-list">
+    <template wx:if="{{!orderList.length}}" is="empty"></template>
+    <block wx:for="{{orderList}}" wx:key="{{index}}">
+      <view class="teacher-history-item">
+        <view class="teacher-history-left text-overflow">
+          {{item.userNickname}}
+          <text class="teacher-history-time">{{item.caseCreateTime}}</text>
+        </view>
+        <image class="teacher-history-right"></image>
+      </view>
+    </block>
+  </view>
+</view>
