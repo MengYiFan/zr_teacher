@@ -31,21 +31,18 @@ Page({
   },
   // 性别选择
   bindSexPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       sexIndex: e.detail.value
     })
   },
   // 省市区
   bindRegionChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       region: e.detail.value
     })
   },
   // 获得用户出生年月
   bindDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       date: e.detail.value
     })
@@ -133,7 +130,6 @@ Page({
       bindUser({
         data: userInfoData,
         success: res => {
-          console.log(res)
           if (res.code == '1000') {
             wx.showToast({
               title: '保存成功',
@@ -189,7 +185,6 @@ Page({
    */
   onShow: function () {
     let userAttribute = wx.getStorageSync('userAttribute') || wx.getStorageSync('userData').userAttribute || false
-    console.log('storage userAttribute: ', userAttribute)
     if (userAttribute) {
       let userBirthDate = userAttribute.userBirthDate,
           birthDate = userBirthDate.split(' ')[0],

@@ -21,7 +21,7 @@
       <view class="teacher-history-item">
         <view class="teacher-history-left text-overflow">
           {{item.userNickname}}
-          <text class="teacher-history-time">{{item.caseCreateTime}}</text>
+          <text class="teacher-history-time">{{item.caseCallinTime}}</text>
         </view>
         <image class="teacher-history-right"></image>
       </view>

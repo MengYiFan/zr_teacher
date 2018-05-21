@@ -26,7 +26,6 @@ Page({
     this.setData({
       userInfo: app.globalData.userInfo
     })
-    console.log(this.data.userInfo)
 
     getCaseList({
       data: {
@@ -39,7 +38,7 @@ Page({
             item.date = item.orderCreateTime
           }
           this.setData({
-            orderList: data
+            orderList: data.reverse()
           })
         }
       }

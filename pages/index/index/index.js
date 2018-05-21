@@ -24,7 +24,6 @@ Page({
   },
   // 上线按钮
   bindFormSubmit(e) {
-    console.log(e.detail)
     if (!this.data.onlineFlag) {
       teacherSignin({
         data: {
@@ -32,7 +31,6 @@ Page({
           formId: e.detail.formId
         },
         success: res => {
-          console.log(res)
           this.setData({
             onlineFlag: true
           })
@@ -97,7 +95,6 @@ Page({
     })
   },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

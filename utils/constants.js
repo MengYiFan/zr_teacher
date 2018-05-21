@@ -1,6 +1,6 @@
-export const API_URI = 'http://192.168.0.103:9100/stg'
+// export const API_URI = 'http://192.168.0.103:9100/stg'
 // export const API_URI = 'http://www.zredq.com:9100/stg'
-// export const API_URI = 'http://app.shangnarxue.com/stg'
+export const API_URI = 'https://app.shangnarxue.com/stg'
 
 export const USER_LOGON = API_URI + '/user/nonlogin/login'
 

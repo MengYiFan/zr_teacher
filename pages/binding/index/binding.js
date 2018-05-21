@@ -198,13 +198,12 @@ Page({
   },
   // 验证码input bindtap绑定
   bindVerificationCodeInputTap() {
-    console.log('123123')
     if (this.data.inputFlag.phone != 1 && !this.data.verificationRandomNumber) {
       this.setData({
         ['inputFlag.phone']: -1
       })
     } else {
-      // console.log('xxx')
+
     }
   },
   // 生成随机数
@@ -215,7 +214,6 @@ Page({
   canSubmit() {
     let res = true, inputFlag = this.data.inputFlag
     for (let k in inputFlag) {
-      console.log(k, inputFlag[k])
       if (inputFlag[k] != 1) {
         res = false
         break
@@ -244,7 +242,6 @@ Page({
   },
   // 获得用户信息
   getUserInfo: function (e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
