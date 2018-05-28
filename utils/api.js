@@ -102,6 +102,8 @@ export const teacherHelpLinkFail = (params, teacherUserId) => wxRequest(params, 
 
 // 问题分类
 export const getCategoryQus = (params) => wxRequest(params, C.CATEGORY_QUS)
+// 付费
+export const getFeeQus = (params) => wxRequest(params, C.FEE_QUS)
 
 // 用户关注问题领域（包括家长和育商师）
 export const getSubjectList = (params) => wxRequest(params, C.SUBJECT_LIST)

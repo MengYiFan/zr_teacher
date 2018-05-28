@@ -7,7 +7,7 @@ var intervalId = null
 const USER_DATA = wx.getStorageSync('userData') || {}
 var time = USER_DATA.imInfo && USER_DATA.imInfo.time
 const CYCLE = USER_DATA.imInfo && USER_DATA.imInfo.cycle
-console.info('USER_DATA:', USER_DATA)
+
 Page({
 
   /**

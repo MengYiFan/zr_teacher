@@ -6,7 +6,8 @@
     "pages/user/history/history",
     "pages/user/course/course",
     "pages/help/call/call",
-    "pages/user/attention/attention"
+    "pages/user/attention/attention",
+    "pages/wx/authorize/authorize"
   ],
   "window": {
     "backgroundTextStyle": "light",

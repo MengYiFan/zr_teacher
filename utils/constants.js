@@ -1,4 +1,4 @@
-// export const API_URI = 'http://192.168.0.103:9100/stg'
+// export const API_URI = 'http://192.168.0.106:9100/stg'
 // export const API_URI = 'http://www.zredq.com:9100/stg'
 export const API_URI = 'https://app.shangnarxue.com/stg'
 
@@ -37,6 +37,7 @@ export const EXIT_RTCROOM = API_URI + '/rtcroom/pusher/exit'
 export const HEARTBEAT = API_URI + '/rtcroom/heartbeat'
 
 export const CATEGORY_QUS = API_URI + '/consult/category/question'
+export const FEE_QUS = API_URI + '/consult/category-charge/question'
 
 export const SUBJECT_LIST = API_URI + '/user/login/mySubjectList'
 export const UPDATE_SUBJECT = API_URI + '/user/login/updateMySubject'

@@ -1,5 +1,5 @@
 // pages/self/attention/attention.js
-import { getCategoryQus, getSubjectList, updateSubject } from '../../../utils/api'
+import { getCategoryQus, getFeeQus, getSubjectList, updateSubject } from '../../../utils/api'
 
 var app = getApp()
 
@@ -81,18 +81,34 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // 问题分类
-    getCategoryQus({
-      method: 'get',
-      success: (res) => {
-        if (res.code == '1000') {
-          this.setData({
-            qusArr: res.data
-          })
-          this.getCategoryQusCb()
+    let userAttribute = app.globalData.userAttribute || wx.getStorageSync('userAttribute')
+
+    if (userAttribute.teacherTypeCode == 'N') {
+      getFeeQus({
+        method: 'get',
+        success: (res) => {
+          console.log(res)
+          if (res.code == '1000') {
+            this.setData({
+              qusArr: res.data
+            })
+            this.getCategoryQusCb()
+          }
         }
-      }
-    })
+      })
+    } else {
+      getCategoryQus({
+        method: 'get',
+        success: (res) => {
+          if (res.code == '1000') {
+            this.setData({
+              qusArr: res.data
+            })
+            this.getCategoryQusCb()
+          }
+        }
+      })
+    }
   },
 
   /**
