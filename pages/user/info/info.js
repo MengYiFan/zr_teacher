@@ -187,13 +187,13 @@ Page({
     let userAttribute = wx.getStorageSync('userAttribute') || wx.getStorageSync('userData').userAttribute || false
     if (userAttribute) {
       let userBirthDate = userAttribute.userBirthDate,
-          birthDate = userBirthDate.split(' ')[0],
+          birthDate = userBirthDate && userBirthDate.split(' ')[0] || '1990-01',
           tempDate = birthDate.split('-'),
           date = tempDate[0] + '-' + tempDate[1],
           region = [],
           sexIndex = 0
 
-      region.push(userAttribute.province, userAttribute.city, userAttribute.district)
+      region.push(userAttribute.province || '广东省', userAttribute.city || '深圳市', userAttribute.district || '南山区')
 
       for (let [index, item] of this.data.sexConf.entries()) {
         if (item == userAttribute.userGender)

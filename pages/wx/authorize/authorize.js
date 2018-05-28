@@ -56,7 +56,7 @@ Page({
           data: {
             thirdPartyKey: app.globalData.code,
             longitude, latitude,
-            userType: 1,
+            userType: 2,
             userNickname: userInfo.nickName,
             userPortraitUrl: userInfo.avatarUrl,
             userMobile: ''

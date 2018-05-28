@@ -111,7 +111,7 @@ export const getSubjectList = (params) => wxRequest(params, C.SUBJECT_LIST)
 export const updateSubject = (params) => wxRequest(params, C.UPDATE_SUBJECT)
 
 // 验证码
-export const phoneValidationCode = (params) => wxRequest(params, C.PHONE_VALIDATION_CODE)
+export const phoneValidationCode = (params, phone_number) => wxRequest(params, C.PHONE_VALIDATION_CODE + '/' + phone_number)
 
 export const getImInfo = (params, id) => wxRequest(params, C.GET_IM + '/' + id)
 export const polling = (params, caseId, userId) => wxRequest(params, C.POLLING_URI + '/' + caseId + '/' + userId)

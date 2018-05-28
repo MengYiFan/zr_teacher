@@ -173,7 +173,7 @@ Page({
           }, 1000)
         }
       }
-    })
+    }, this.data.inputPhoneValue)
   },
   // 验证码输入 bindinput
   bindVerificationCodeInput(e) {
