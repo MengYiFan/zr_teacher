@@ -6,12 +6,14 @@
       <block 
         wx:key="{{index}}"
         wx:for="{{qusArr}}">
-        <view
-          data-index="{{index}}"
-          data-flag="{{item.flag || false}}"
-          data-key="{{item.key}}"
-          bindtap="bindTagTap"
-          class="common-tag {{item.flag ? 'common-tag-checked' : ''}}">{{item.val}}</view>
+          <view
+            data-index="{{index}}"
+            data-flag="{{item.flag || false}}"
+            data-key="{{item.key}}"
+            bindtap="bindTagTap"
+            class="common-tag {{item.flag ? 'common-tag-checked' : ''}}">
+            {{item.val}}
+          </view>
       </block>
     </view>
   </view>

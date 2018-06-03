@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -55,12 +55,6 @@
 					"name": "course",
 					"pathName": "pages/user/course/course",
 					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "test",
-					"pathName": "pages/test/test",
-					"query": "caseId=345&teacherUserId=2"
 				},
 				{
 					"id": -1,

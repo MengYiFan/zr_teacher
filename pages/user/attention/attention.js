@@ -82,15 +82,15 @@ Page({
    */
   onShow: function () {
     let userAttribute = app.globalData.userAttribute || wx.getStorageSync('userAttribute')
-
-    if (userAttribute.teacherTypeCode == 'N') {
+    // N 免费 Y 收费
+    if (userAttribute.teacherTypeCode.toUpperCase() == 'Y') {
       getFeeQus({
         method: 'get',
         success: (res) => {
           console.log(res)
           if (res.code == '1000') {
             this.setData({
-              qusArr: res.data
+              qusArr: res.data.category
             })
             this.getCategoryQusCb()
           }
