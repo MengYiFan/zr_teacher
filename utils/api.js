@@ -46,8 +46,15 @@ const wxRequest = (params, url) => {
       console.log('结果:', res.data)
     },
     fail: (res) => {
-      console.log(res)
-      params.fail && params.fail(res)
+      console.log('Api fail@', res)
+      wx.showToast({
+        icon: 'none',
+        title: '网络服务暂忙, 请稍后再试。',
+        duration: 3000,
+        complete() {
+          params.fail && params.fail(res)
+        }
+      })
     },
     complete: (res) => {
       if (!params.showLoading) {

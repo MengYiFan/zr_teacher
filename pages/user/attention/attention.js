@@ -83,7 +83,8 @@ Page({
   onShow: function () {
     let userAttribute = app.globalData.userAttribute || wx.getStorageSync('userAttribute')
     // N 免费 Y 收费
-    if (userAttribute.teacherTypeCode.toUpperCase() == 'Y') {
+    console.warn(userAttribute)
+    if (userAttribute.teacherTypeCode == 'Y') {
       getFeeQus({
         method: 'get',
         success: (res) => {
