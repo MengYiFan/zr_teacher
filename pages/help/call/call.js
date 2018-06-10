@@ -32,6 +32,8 @@ Page({
     avatar: '',
     options: {}
   },
+  isFree: 1,
+  userAttribute: {},
   continueHeartBeat: true,
   isHangupFlag: false,
   roomId: null,
@@ -77,7 +79,8 @@ Page({
           hangupType: 2,
           roomId: this.roomId || this.data.roomId,
           teacherUserId: this.teacherUserId || this.data.teacherUserId,
-          seconds: parseInt(seconds)
+          seconds: parseInt(seconds),
+          isFree: this.isFree
         }
 
       hangupApply({
@@ -94,10 +97,13 @@ Page({
           } else {
             wx.showToast({
               icon: 'none',
-              title: '退出房间失败..'
+              title: '退出房间..'
             })
             setTimeout(function () {
               wx.hideLoading()
+              wx.redirectTo({
+                url: '../../../pages/index/index/index'
+              })
             }, 2000)
           }
         }
@@ -112,7 +118,8 @@ Page({
           caseId: this.caseId || data.caseId || caseId,
           hangupType: 2,
           teacherUserId: this.teacherUserId || this.data.teacherUserId,
-          seconds: parseInt(seconds)
+          seconds: parseInt(seconds),
+          isFree: this.isFree
         }
     console.info('bindCallHangupTap reqData:', reqData)
     hangupHelpCall({
@@ -221,6 +228,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // 判断是否是付费类型的
+    this.userAttribute = wx.getStorageInfoSync('userAttribute') || {}
+    let teacherTypeCode = this.userAttribute && this.userAttribute.teacherTypeCode || 'N'
+    this.isFree = teacherTypeCode == 'N' ? 1 : 2
+
     console.warn('options', options)
     this.setData({
       options: options,

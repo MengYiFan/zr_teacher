@@ -22,7 +22,7 @@ const wxRequest = (params, url) => {
 
   wx.showNavigationBarLoading()
 
-  if (!params.showLoading) {
+  if (params.showLoading) {
     wx.showLoading({
       title: '加载中...',
     })
@@ -57,7 +57,7 @@ const wxRequest = (params, url) => {
       })
     },
     complete: (res) => {
-      if (!params.showLoading) {
+      if (params.showLoading) {
         wx.hideLoading()
       }
       params.complete && params.complete(res.data)
