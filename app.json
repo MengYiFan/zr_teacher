@@ -7,7 +7,8 @@
     "pages/user/course/course",
     "pages/help/call/call",
     "pages/user/attention/attention",
-    "pages/wx/authorize/authorize"
+    "pages/wx/authorize/authorize",
+    "pages/user/income/income"
   ],
   "window": {
     "backgroundTextStyle": "light",

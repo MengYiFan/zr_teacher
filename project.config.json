@@ -67,6 +67,12 @@
 					"name": "call",
 					"pathName": "pages/help/call/call",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "income",
+					"pathName": "pages/user/income/income",
+					"query": ""
 				}
 			]
 		}

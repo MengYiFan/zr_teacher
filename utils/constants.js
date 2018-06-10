@@ -42,6 +42,8 @@ export const FEE_QUS = API_URI + '/consult/category-charge/question'
 export const SUBJECT_LIST = API_URI + '/user/login/mySubjectList'
 export const UPDATE_SUBJECT = API_URI + '/user/login/updateMySubject'
 
+export const INCOME = API_URI + '/user/login/walletLoyaltyInfo'
+
 //
 export const GET_PUSHER = API_URI + '/consult/getpushurl'
 

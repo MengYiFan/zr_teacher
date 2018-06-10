@@ -127,6 +127,7 @@ export const enterRtcroom = (params, rootId) => wxRequest(params, C.ENTER_RTCROO
 export const exitRtcroom = (params, rootId, userId) => wxRequest(params, C.ENTER_RTCROOM + '/' + rootId + '/' + userId)
 export const heartbeat = (params, rootId, userId) => wxRequest(params, C.HEARTBEAT + '/' + rootId + '/' + userId)
 
+export const getIncome = (params) => wxRequest(params, C.INCOME)
 //
 //
 export const getPusher = (params, userId) => wxRequest(params, C.GET_PUSHER + '/' + userId)

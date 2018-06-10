@@ -74,6 +74,19 @@
         </view>
         <view class="row-cell-arrow"></view>
       </view>
+      <!-- 我的收入 -->
+      <view
+        bindtap="bindcellTap"
+        data-to="../../user/income/income" 
+        class="row-cell">
+        <view class="row-cell-left">
+          <image 
+            src="../../../images/wallet.png"
+            class="row-cell-icon"></image>
+          <text class="row-cell-text">我的收入</text>
+        </view>
+        <view class="row-cell-arrow"></view>
+      </view>
     </view>
   </view>
 </view>

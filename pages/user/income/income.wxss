@@ -1,0 +1,86 @@
+/* pages/user/income/income.wxss */
+@import '../../templates/empty/empty.wxss'
+
+.header {
+  background-color: #fff;
+  padding: 30rpx;
+  height: 360rpx;
+  text-align: center;
+}
+
+.header-image {
+  width: 145rpx;
+  height: 145rpx;
+  background-color: #ccc;
+  display: block;
+  border-radius: 50%;
+  margin: 40rpx auto;
+}
+
+.header-name {
+  font-size: 32rpx;
+  color: 383838;
+  display: block;
+}
+
+.header-account {
+  color: #dcdcdc;
+  font-size: 26rpx;
+}
+
+.teacher-income-title {
+  height: 92rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #343434;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.teacher-income-title-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+}
+
+.teacher-income-list {
+  padding: 20rpx;
+  background-color: #fff;
+}
+
+.teacher-income-item {
+  padding: 30rpx 0;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1rpx solid #dcdcdc;
+}
+
+.teacher-income-item:first-child {
+  border-top: none;
+}
+
+.teacher-income-left {
+  position: relative;
+  height: 70rpx;
+  flex: 1;
+  font-size: 28rpx;
+  color: #383838;
+  align-self: flex-start;
+}
+
+.teacher-income-time {
+  position: absolute;
+  left: 0;
+  bottom: -6rpx;
+  font-size: 24rpx;
+  color: #b4b4b4;
+}
+
+.teacher-income-right {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  background-color: #ccc;
+}

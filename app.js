@@ -21,7 +21,7 @@ App({
       console.log('globalData')
       typeof cb == "function" && cb(globalData.userInfo)
     } else if ( wx.getStorageSync('userId') && wx.getStorageSync('teacherMobile') ) {
-      console.log('getStorageSync')
+      console.log('Get Storage')
       // 返回缓存内容
       that.globalData.userId = wx.getStorageSync('userId')
       that.globalData.userInfo = wx.getStorageSync('userInfo')

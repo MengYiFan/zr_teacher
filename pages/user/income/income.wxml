@@ -1,0 +1,30 @@
+<!--pages/user/income/income.wxml-->
+<import src="../../templates/empty/empty.wxml"/>
+
+<view class="container teacher-history">
+  <view class="header">
+    <image
+      src="{{userInfo.avatarUrl}}" 
+      class="header-image"></image>
+    <text class="text-overflow header-name">{{userInfo.nickName}}</text>
+    <!-- <text class="text-overflow header-account">账号: 123123</text> -->
+  </view>
+  <view class="teacher-income-title">
+    <image 
+      src="../../../images/wallet.png"
+      class="teacher-income-title-icon"></image>
+    收入记录
+  </view>
+  <view class="teacher-income-list">
+    <template wx:if="{{!incomeList.length}}" is="empty"></template>
+    <block wx:for="{{incomeList}}" wx:key="{{index}}">
+      <view class="teacher-income-item">
+        <view class="teacher-income-left text-overflow">
+          {{item.userNickname || '-'}}
+          <text class="teacher-income-time">{{item.caseCallinTime || ''}}</text>
+        </view>
+        <image class="teacher-income-right"></image>
+      </view>
+    </block>
+  </view>
+</view>
