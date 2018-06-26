@@ -82,6 +82,7 @@ App({
             if (res.code == '1000') {
               let data = res.data
               that.globalData.userId = data.userId
+              that.globalData.userData = res.data
               let userAttribute = data.userAttribute
               that.globalData.userAttribute = userAttribute
               console.log('get userAttribute::', userAttribute)

@@ -4,9 +4,6 @@ import { init, sendRoomTextMsg } from '../../../utils/wx/rtcroom'
 
 var app = getApp()
 var intervalId = null
-const USER_DATA = wx.getStorageSync('userData') || {}
-var time = USER_DATA.imInfo && USER_DATA.imInfo.time
-const CYCLE = USER_DATA.imInfo && USER_DATA.imInfo.cycle
 
 Page({
 
@@ -32,6 +29,9 @@ Page({
     avatar: '',
     options: {}
   },
+  USER_DATA: {},
+  TIME: 20,
+  CYCLE: 5,
   isFree: 1,
   userAttribute: {},
   continueHeartBeat: true,
@@ -170,7 +170,7 @@ Page({
           if (this.continueHeartBeat) {
             setTimeout(() => {
               this.heartbeat()
-            }, 1000 * CYCLE)
+            }, 1000 * this.CYCLE)
           }
         } else {
           this.setData({
@@ -369,9 +369,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.USER_DATA = wx.getStorageSync('userData') || {}
+    this.TIME = (this.USER_DATA.imInfo && this.USER_DATA.imInfo.time) || 20
+    this.CYCLE = (this.USER_DATA.imInfo && this.USER_DATA.imInfo.cycle) || 5
+
     let that = this
     init({
-      data: USER_DATA.imInfo || {},
+      data: that.USER_DATA.imInfo || {},
       success: res => {
         that.getPusherHandle()
       },
@@ -392,14 +396,6 @@ Page({
           this.caseId = msgArr[2]
           this.bindCallHangupTap(null, this.caseId, 'passivity')
         }
-        
-        // let msgArr = msg.split('||'),
-        //   index = msgArr.length - 1
-
-        // that.setData({
-        //   userLive: msgArr[index]
-        // })
-        // console.warn('地址信息', that.data)
       }
     })
   },
