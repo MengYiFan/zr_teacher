@@ -4,9 +4,7 @@ import { init, sendRoomTextMsg } from '../../../utils/wx/rtcroom'
 
 var app = getApp()
 var intervalId = null
-const USER_DATA = wx.getStorageSync('userData') || {}
-var time = USER_DATA.imInfo && USER_DATA.imInfo.time
-const CYCLE = USER_DATA.imInfo && USER_DATA.imInfo.cycle
+var MAX_TRY_LOGIN_IM = 3
 
 Page({
 
@@ -32,6 +30,9 @@ Page({
     avatar: '',
     options: {}
   },
+  USER_DATA: {},
+  TIME: 20,
+  CYCLE: 5,
   isFree: 1,
   userAttribute: {},
   continueHeartBeat: true,
@@ -170,7 +171,7 @@ Page({
           if (this.continueHeartBeat) {
             setTimeout(() => {
               this.heartbeat()
-            }, 1000 * CYCLE)
+            }, 1000 * this.CYCLE)
           }
         } else {
           this.setData({
@@ -358,26 +359,17 @@ Page({
       })
     }
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  loginIM(data, failFn) {
     let that = this
     init({
-      data: USER_DATA.imInfo || {},
+      data: data,
       success: res => {
-        that.getPusherHandle()
+        this.getPusherHandle()
       },
+      fail: failFn,
       cb255: msg => {
         console.warn('我收到信息啦::', msg)
-        
+
         let msgArr = msg.split('||')
 
         if (msgArr[0] == '01') {
@@ -392,16 +384,41 @@ Page({
           this.caseId = msgArr[2]
           this.bindCallHangupTap(null, this.caseId, 'passivity')
         }
-        
+
         // let msgArr = msg.split('||'),
         //   index = msgArr.length - 1
 
-        // that.setData({
+        // this.setData({
         //   userLive: msgArr[index]
         // })
-        // console.warn('地址信息', that.data)
+        // console.warn('地址信息', this.data)
       }
     })
+  },
+  loginIMFailCb() {
+    if (MAX_TRY_LOGIN_IM) {
+      this.loginIM(this.USER_DATA.imInfo, this.loginIMFailCb)
+      MAX_TRY_LOGIN_IM--
+    } else {
+      console.error('IM 尝试登录三次均失败')
+    }
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+  
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.USER_DATA = wx.getStorageSync('userData') || {}
+    this.TIME = (this.USER_DATA.imInfo && this.USER_DATA.imInfo.time) || 20
+    this.CYCLE = (this.USER_DATA.imInfo && this.USER_DATA.imInfo.cycle) || 5
+    
+    this.loginIM(this.USER_DATA.imInfo || {}, this.loginIMFailCb)
   },
 
   /**

@@ -94,7 +94,7 @@ function request(options) {
  *   userName: 用户昵称
  */
 function init(options) {
-  console.log('rtcroom::', options)
+  console.log('IM init:', options)
   // if(!options || !options.data.serverDomain) {
   // 	console.log('init参数错误',options);
   // 	options.fail && options.fail({
@@ -109,7 +109,7 @@ function init(options) {
   accountInfo.sdkAppID = options.data.sdkAppId;
   accountInfo.accountType = options.data.accType;
   accountInfo.userName = options.data.userName || userName[Math.floor(Math.random() * 10)] || accountInfo.userID;
-  accountInfo.userAvatar = '123';
+  accountInfo.userAvatar = options.data.userAvatar || '';
   // 登录IM
   loginIM({
     success: options.success,
@@ -166,14 +166,14 @@ function loginIM(options) {
   var onGroupSystemNotifys = {
     // 群被解散(全员接收)
     "5": function (notify) {
-      console.warn('onGroupSystemNotifys@5@', notify)
+      console.warn('收到onGroupSystemNotifys 5信息@', notify)
       roomInfo.isDestory = true;
       event.onRoomClose({});
     },
     "11": webimhandler.onRevokeGroupNotify, //群已被回收(全员接收)
     // 用户自定义通知(默认全员接收)
     "255": function (notify) {
-      console.warn('收到255展润的信息：', notify.UserDefinedField);
+      console.warn('收到255展润的信息@', notify.UserDefinedField);
 
       typeof options.cb255 == "function" && options.cb255(notify.UserDefinedField)
       mergePushers()
