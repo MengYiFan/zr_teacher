@@ -273,7 +273,7 @@ Page({
       success: res => {
         if (res.code == '1000') {
           that.setData({
-            teachPusher: res.teacherPusher
+            teachPusher: res.data.teacherPusher
           })
         }
       }
