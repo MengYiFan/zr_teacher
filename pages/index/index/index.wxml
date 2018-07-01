@@ -88,5 +88,18 @@
         <view class="row-cell-arrow"></view>
       </view>
     </view>
+    <!-- 退出 -->
+    <view wx:if="{{onlineFlag}}" class="index-list row-cells">
+      <view
+        bindtap="signoutHandle"
+        class="row-cell">
+        <view class="row-cell-left">
+          <image 
+            src="../../../images/signout.png"
+            class="row-cell-icon"></image>
+          <text class="row-cell-text">退出在线状态</text>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

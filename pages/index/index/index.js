@@ -1,5 +1,5 @@
 //index.js
-import { teacherIsOnline, teacherSignin } from '../../../utils/api'
+import { teacherIsOnline, teacherSignin, signout } from '../../../utils/api'
 
 const app = getApp()
 
@@ -9,6 +9,31 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     onlineFlag: false
+  },
+  signoutHandle() {
+    signout({
+      data: {
+        userId: app.globalData.userId || wx.getStorageSync('userId')
+      },
+      success: res => {
+        if (res.code == '1000') {
+          wx.showToast({
+            title: '退出成功!',
+            icon: 'success',
+            duration: 2000
+          })
+          this.setData({
+            onlineFlag: false
+          })
+        } else {
+          wx.showToast({
+            title: '退出失败请稍后再试!',
+            icon: 'success',
+            duration: 2000
+          })
+        }
+      }
+    })
   },
   //事件处理函数
   bindcellTap(e) {
@@ -31,6 +56,11 @@ Page({
           formId: e.detail.formId
         },
         success: res => {
+          wx.showToast({
+            title: '登录成功!',
+            icon: 'success',
+            duration: 2000
+          })
           this.setData({
             onlineFlag: true
           })

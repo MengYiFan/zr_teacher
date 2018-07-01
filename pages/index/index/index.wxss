@@ -11,7 +11,6 @@
   padding: 50rpx 0;
   border-bottom: 1rpx solid #f7f7f8;
   background-color: #fff;
-  margin-bottom: 20rpx;
 }
 
 .index-online-circle {
@@ -78,6 +77,7 @@
 .row-cells {
   position: relative;
   background-color: #fff;
+  margin-top: 20rpx;
 }
 
 .row-cell {
@@ -112,7 +112,6 @@
 .row-cell-icon {
   width: 50rpx;
   height: 50rpx;
-  background-color: #f7f7f8;
   vertical-align: top;
 }
 

@@ -99,6 +99,7 @@ export const assignLink = (params) => wxRequest(params, C.ASSIGN_LINK)
 // 是否在线
 export const teacherIsOnline = (params) => wxRequest(params, C.IS_ONLINE)
 export const teacherSignin = (params) => wxRequest(params, C.TEACHER_SIGNIN)
+export const signout = (params) => wxRequest(params, C.SIGNOUT)
 
 // 老师连上
 export const teacherHelpLink = (params) => wxRequest(params, C.HELP_LINK)

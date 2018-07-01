@@ -22,6 +22,7 @@ export const COURSE_LIST = API_URI + '/course/parent/myCourseList'
 export const MY_COURSE_LIST = API_URI + '/course/teacher/myCourseList'
 
 export const TEACHER_SIGNIN = API_URI + '/consult/signin'
+export const SIGNOUT = API_URI + '/consult/signout'
 
 export const PHONE_VALIDATION_CODE = API_URI + '/none/sendcode'
 
