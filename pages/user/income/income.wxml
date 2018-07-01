@@ -7,7 +7,6 @@
       src="{{userInfo.avatarUrl}}" 
       class="header-image"></image>
     <text class="text-overflow header-name">{{userInfo.nickName}}</text>
-    <!-- <text class="text-overflow header-account">账号: 123123</text> -->
   </view>
   <view class="teacher-income-title">
     <image 

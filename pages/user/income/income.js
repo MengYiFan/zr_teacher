@@ -20,7 +20,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo || wx.getStorageSync('userInfo')
     })
 
     getIncome({
@@ -30,11 +30,8 @@ Page({
       success: res => {
         if (res.code == '1000') {
           let data = res.data
-          for (var [index, item] of data.entries()) {
-            item.date = item.orderCreateTime
-          }
           this.setData({
-            orderList: data.reverse()
+            incomeList: data.loyaltyRecordList
           })
         }
       }

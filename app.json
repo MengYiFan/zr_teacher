@@ -12,8 +12,8 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#EB1C25",
+    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "育商师",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "black"
   }
 }
