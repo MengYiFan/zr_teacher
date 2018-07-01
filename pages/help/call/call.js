@@ -45,12 +45,11 @@ Page({
     getPusher({
       method: 'get',
       success: res => {
-        console.info('getPusherHandle:', res)
         if (res.code == '1000') {
           this.setData({
             teachPusher: res.msg
           })
-          console.warn('teachPusher', res.msg)
+
           if (this.options.type == 'all') {
             this.teacherHelpLinkHandle()
           } else {
@@ -155,7 +154,7 @@ Page({
             teachPusher: res.data[0].pushURL
           })
         }
-        console.info('teachPusher!!!', this.data.teachPusher, '@userLive@', this.data.userLive)
+
         this.heartbeat()
       }
     }, this.roomId)
@@ -174,8 +173,8 @@ Page({
           }
         } else {
           this.setData({
-            teachPusher: null,
-            userLive: null,
+            teachPusher: '',
+            userLive: '',
             canHangupFlag: false
           })
         }
@@ -191,19 +190,19 @@ Page({
   // 状态码
   playerStatechange(e) {
     console.warn('live-player code:', e.detail.code)
-    // if (e.detail.code == -2302 || e.detail.code == -2301) {
-    //   console.warn('尝试连接live')
-    //   let userLive = this.data.userLive
+    if (e.detail.code == -2302 || e.detail.code == -2301) {
+      console.warn('尝试连接live')
+      let userLive = this.data.userLive
       
-    //   this.setData({
-    //     userLive: ''
-    //   })
-    //   setTimeout(() => {
-    //     this.setData({
-    //       userLive: userLive
-    //     })
-    //   }, 5000)
-    // }
+      this.setData({
+        userLive: ''
+      })
+      setTimeout(() => {
+        this.setData({
+          userLive: userLive
+        })
+      }, 2000)
+    }
   },
   playerError(e) {
     console.error('live-player error:', e.detail.errMsg)
@@ -272,7 +271,7 @@ Page({
       success: res => {
         if (res.code == '1000') {
           that.setData({
-            teachPusher: res.teacherPusher
+            teachPusher: res.data.teacherPusher
           })
         }
       }
@@ -287,12 +286,11 @@ Page({
         pushUrl: this.data.teachPusher
       }),
       success: res => {
-        console.warn('teacherHelpLinkHandle res: ', res)
         if (res.code == '1000') {
           this.setData({
             userLive: res.data.userAccelerateUrl
           })
-          console.warn('userLive', res.data.userAccelerateUrl)
+
           wx.vibrateLong()
           this.heartbeat()
           this.setData({
@@ -307,7 +305,7 @@ Page({
 
           // let fa = data.teachPusher.replace(/[\'\"]/g, '').split('|')[0].trim(),
           //     shou = data.userLive.replace(/[\'\"]/g, '').split('|')[1].split(',')[0].slice(6).replace('}', '').trim()
-          // console.info('userLive播放地址: ', fa, ';;@@@teachPusher播放地址: ', shou)
+
           // this.setData({
           //   subjectIds: data.caseId || 0,
           //   canHangupFlag: true,
