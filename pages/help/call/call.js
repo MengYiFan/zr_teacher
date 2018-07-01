@@ -4,6 +4,7 @@ import { init, sendRoomTextMsg } from '../../../utils/wx/rtcroom'
 
 var app = getApp()
 var intervalId = null
+var MAX_TRY_LOGIN_IM = 3
 
 Page({
 
@@ -45,11 +46,12 @@ Page({
     getPusher({
       method: 'get',
       success: res => {
+        console.info('getPusherHandle:', res)
         if (res.code == '1000') {
           this.setData({
             teachPusher: res.msg
           })
-
+          console.warn('teachPusher', res.msg)
           if (this.options.type == 'all') {
             this.teacherHelpLinkHandle()
           } else {
@@ -79,7 +81,7 @@ Page({
           roomId: this.roomId || this.data.roomId,
           teacherUserId: this.teacherUserId || this.data.teacherUserId,
           seconds: parseInt(seconds),
-          isFree: this.isFree
+          isFree: this.isFree || 1
         }
 
       hangupApply({
@@ -111,15 +113,15 @@ Page({
     }
 
     let data = this.data,
-        seconds = this.startTime ? (+new Date() - this.startTime) / 1000 : 0,
-        reqData = {
-          userId: app.globalData.userId || wx.getStorageSync('userId'),
-          caseId: this.caseId || data.caseId || caseId,
-          hangupType: 2,
-          teacherUserId: this.teacherUserId || this.data.teacherUserId,
-          seconds: parseInt(seconds),
-          isFree: this.isFree
-        }
+      seconds = this.startTime ? (+new Date() - this.startTime) / 1000 : 0,
+      reqData = {
+        userId: app.globalData.userId || wx.getStorageSync('userId'),
+        caseId: this.caseId || data.caseId || caseId,
+        hangupType: 2,
+        teacherUserId: this.teacherUserId || this.data.teacherUserId,
+        seconds: parseInt(seconds),
+        isFree: this.isFree || 1
+      }
     console.info('bindCallHangupTap reqData:', reqData)
     hangupHelpCall({
       data: reqData,
@@ -127,7 +129,7 @@ Page({
         console.info(res)
       },
       complete() {
-        this.isHangupFlag =  true
+        this.isHangupFlag = true
         wx.reLaunch({
           url: '../../../pages/index/index/index'
         })
@@ -154,7 +156,7 @@ Page({
             teachPusher: res.data[0].pushURL
           })
         }
-
+        console.info('teachPusher!!!', this.data.teachPusher, '@userLive@', this.data.userLive)
         this.heartbeat()
       }
     }, this.roomId)
@@ -173,8 +175,8 @@ Page({
           }
         } else {
           this.setData({
-            teachPusher: '',
-            userLive: '',
+            teachPusher: null,
+            userLive: null,
             canHangupFlag: false
           })
         }
@@ -190,19 +192,19 @@ Page({
   // 状态码
   playerStatechange(e) {
     console.warn('live-player code:', e.detail.code)
-    if (e.detail.code == -2302 || e.detail.code == -2301) {
-      console.warn('尝试连接live')
-      let userLive = this.data.userLive
-      
-      this.setData({
-        userLive: ''
-      })
-      setTimeout(() => {
-        this.setData({
-          userLive: userLive
-        })
-      }, 2000)
-    }
+    // if (e.detail.code == -2302 || e.detail.code == -2301) {
+    //   console.warn('尝试连接live')
+    //   let userLive = this.data.userLive
+
+    //   this.setData({
+    //     userLive: ''
+    //   })
+    //   setTimeout(() => {
+    //     this.setData({
+    //       userLive: userLive
+    //     })
+    //   }, 5000)
+    // }
   },
   playerError(e) {
     console.error('live-player error:', e.detail.errMsg)
@@ -212,7 +214,7 @@ Page({
     // if (e.detail.code < 0) {
     //   console.warn('尝试连接pusher', e.detail.code)
     //   let teachPusher = this.data.teachPusher
-      
+
     //   this.setData({
     //     teachPusher: ''
     //   })
@@ -271,7 +273,7 @@ Page({
       success: res => {
         if (res.code == '1000') {
           that.setData({
-            teachPusher: res.data.teacherPusher
+            teachPusher: res.teacherPusher
           })
         }
       }
@@ -279,18 +281,19 @@ Page({
   },
   teacherHelpLinkHandle() {
     let options = this.options,
-        that = this
-    console.warn('teacherHelpLinkHandle options@@@',options)
+      that = this
+    console.warn('teacherHelpLinkHandle options@@@', options)
     teacherHelpLink({
       data: Object.assign(options, {
         pushUrl: this.data.teachPusher
       }),
       success: res => {
+        console.warn('teacherHelpLinkHandle res: ', res)
         if (res.code == '1000') {
           this.setData({
             userLive: res.data.userAccelerateUrl
           })
-
+          console.warn('userLive', res.data.userAccelerateUrl)
           wx.vibrateLong()
           this.heartbeat()
           this.setData({
@@ -305,7 +308,7 @@ Page({
 
           // let fa = data.teachPusher.replace(/[\'\"]/g, '').split('|')[0].trim(),
           //     shou = data.userLive.replace(/[\'\"]/g, '').split('|')[1].split(',')[0].slice(6).replace('}', '').trim()
-
+          // console.info('userLive播放地址: ', fa, ';;@@@teachPusher播放地址: ', shou)
           // this.setData({
           //   subjectIds: data.caseId || 0,
           //   canHangupFlag: true,
@@ -356,30 +359,17 @@ Page({
       })
     }
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    this.USER_DATA = wx.getStorageSync('userData') || {}
-    this.TIME = (this.USER_DATA.imInfo && this.USER_DATA.imInfo.time) || 20
-    this.CYCLE = (this.USER_DATA.imInfo && this.USER_DATA.imInfo.cycle) || 5
-
+  loginIM(data, failFn) {
     let that = this
     init({
-      data: that.USER_DATA.imInfo || {},
+      data: data,
       success: res => {
-        that.getPusherHandle()
+        this.getPusherHandle()
       },
+      fail: failFn,
       cb255: msg => {
         console.warn('我收到信息啦::', msg)
-        
+
         let msgArr = msg.split('||')
 
         if (msgArr[0] == '01') {
@@ -394,15 +384,48 @@ Page({
           this.caseId = msgArr[2]
           this.bindCallHangupTap(null, this.caseId, 'passivity')
         }
+
+        // let msgArr = msg.split('||'),
+        //   index = msgArr.length - 1
+
+        // this.setData({
+        //   userLive: msgArr[index]
+        // })
+        // console.warn('地址信息', this.data)
       }
     })
+  },
+  loginIMFailCb() {
+    if (MAX_TRY_LOGIN_IM) {
+      this.loginIM(this.USER_DATA.imInfo, this.loginIMFailCb)
+      MAX_TRY_LOGIN_IM--
+    } else {
+      console.error('IM 尝试登录三次均失败')
+    }
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.USER_DATA = wx.getStorageSync('userData') || {}
+    this.TIME = (this.USER_DATA.imInfo && this.USER_DATA.imInfo.time) || 20
+    this.CYCLE = (this.USER_DATA.imInfo && this.USER_DATA.imInfo.cycle) || 5
+
+    this.loginIM(this.USER_DATA.imInfo || {}, this.loginIMFailCb)
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
@@ -419,13 +442,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 })

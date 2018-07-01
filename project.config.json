@@ -73,6 +73,12 @@
 					"name": "income",
 					"pathName": "pages/user/income/income",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "wx authorize",
+					"pathName": "pages/wx/authorize/authorize",
+					"query": ""
 				}
 			]
 		}
