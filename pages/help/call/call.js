@@ -188,39 +188,47 @@ Page({
   },
   // 状态码
   playerStatechange(e) {
-    console.warn('live-player code:', e.detail.code)
-    // if (e.detail.code == -2302 || e.detail.code == -2301) {
-    //   console.warn('尝试连接live')
-    //   let userLive = this.data.userLive
+    try {
+      console.warn('live-player code:', e.detail.code)
+      if (e.detail.code == -2301) {
+        console.warn('尝试连接live')
+        let userLive = this.data.userLive
 
-    //   this.setData({
-    //     userLive: ''
-    //   })
-    //   setTimeout(() => {
-    //     this.setData({
-    //       userLive: userLive
-    //     })
-    //   }, 5000)
-    // }
+        this.setData({
+          userLive: ''
+        })
+        setTimeout(() => {
+          this.setData({
+            userLive: userLive
+          })
+        }, 5000)
+      }
+    } catch (error) {
+      console.error('playerStatechange error', error)
+    }
   },
   playerError(e) {
     console.error('live-player error:', e.detail.errMsg)
   },
   pusherStatechange(e) {
     console.warn('live-pusher code:', e.detail && e.detail.code || 'null')
-    // if (e.detail.code < 0) {
-    //   console.warn('尝试连接pusher', e.detail.code)
-    //   let teachPusher = this.data.teachPusher
-
-    //   this.setData({
-    //     teachPusher: ''
-    //   })
-    //   setTimeout(() => {
-    //     this.setData({
-    //       teachPusher: teachPusher
-    //     })
-    //   }, 5000)
-    // }
+    try {
+      if (e.detail.code == -1307) {
+        console.warn('尝试连接pusher', e.detail.code)
+        let teachPusher = this.data.teachPusher
+  
+        this.setData({
+          teachPusher: ''
+        })
+        setTimeout(() => {
+          this.setData({
+            teachPusher: teachPusher
+          })
+        }, 5000)
+      }
+    } catch (error) {
+      console.error('pusherStatechange: ', error)
+    }
   },
   /**
    * 生命周期函数--监听页面加载
