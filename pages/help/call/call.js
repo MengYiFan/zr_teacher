@@ -87,10 +87,13 @@ Page({
       hangupApply({
         data: reqData,
         complete: () => {
-          this.isHangupFlag = true
-          wx.reLaunch({
-            url: '../../../pages/index/index/index'
-          })
+          setTimeout(function () {
+            wx.hideLoading()
+            this.isHangupFlag = true
+            wx.reLaunch({
+              url: '../../../pages/index/index/index'
+            })
+          }, 2000)
         },
         success: res => {
           if (res.code == '1000') {
@@ -100,12 +103,6 @@ Page({
               icon: 'none',
               title: '退出房间..'
             })
-            setTimeout(function () {
-              wx.hideLoading()
-              wx.redirectTo({
-                url: '../../../pages/index/index/index'
-              })
-            }, 2000)
           }
         }
       })
@@ -352,7 +349,7 @@ Page({
           this.setData({
             isShowForm: false
           })
-          wx.redirectTo({
+          wx.reLaunch({
             url: '../../../pages/index/index/index'
           })
         }

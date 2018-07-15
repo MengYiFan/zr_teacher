@@ -24,11 +24,17 @@
       <!-- 收 -->
       <live-player 
         class="call-live-player"
-        src="{{userLive}}" 
+        src="{{userLive}}"
+        min-cache="0.1"
+        max-cache="0.3"
+        debug="{{true}}" 
         mode="RTC" autoplay />
       <!-- 发 -->
       <live-pusher 
+        audio-quality="high"
+        debug="{{true}}"
         url="{{teachPusher}}"
+        enable-camera="{{true}}"
         mode="RTC" autopush
         enable-camera="{{controler.enableCamera}}"
         muted="{{controler.muted}}" />
