@@ -20,26 +20,31 @@ Page({
       success: function (res) {
         console.log(res)
         app.globalData.code = res.code || null
-        wx.getUserInfo({
-          success: function (res) {
-            app.globalData.userInfo = res.userInfo
-            wx.setStorageSync('userInfo', res.userInfo)
-            typeof cb == "function" && cb()
-          },
-          // 如果用户拒绝授权
-          fail: function (res) {
-            this.getUserInfoHandle()
-          }
-        })
+        if (wx.getStorageSync('userInfo')) {
+          app.globalData.userInfo = wx.getStorageSync('userInfo')
+          typeof cb == "function" && cb()
+        } else {
+          wx.getUserInfo({
+            success: function (res) {
+              app.globalData.userInfo = res.userInfo
+              wx.setStorageSync('userInfo', res.userInfo)
+              typeof cb == "function" && cb()
+            },
+            // 如果用户拒绝授权
+            fail: function (res) {
+              this.getUserInfoHandle()
+            }
+          })
+        }
       }
     })
   },
   // 获得当前的位置信息
   getUserLocation(cb) {
     let that = this
-    if (app.globalData.userId) {
-      return
-    }
+    // if (app.globalData.userId) {
+    //   return
+    // }
     wx.getLocation({
       type: 'wgs84',
       success: function (res) {
@@ -93,7 +98,7 @@ Page({
    */
   onLoad: function (options) {
     this.redirectUrl = options.redirect
-    if (!this.redirectUrl || this.redirectUrl == 'pages/wx/userinfo/userinfo') {
+    if (!this.redirectUrl || this.redirectUrl == 'pages/wx/authorize/authorize') {
       this.redirectUrl = 'pages/index/index/index'
     }
   },

@@ -34,7 +34,6 @@
         audio-quality="high"
         debug="{{true}}"
         url="{{teachPusher}}"
-        enable-camera="{{true}}"
         mode="RTC" autopush
         enable-camera="{{controler.enableCamera}}"
         muted="{{controler.muted}}" />

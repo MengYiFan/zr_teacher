@@ -16,7 +16,7 @@ Page({
     userLive: null,
     controler: {
       muted: false,
-      enableCamera: false
+      enableCamera: true
     },
     isShowForm: false,
     connectionFlag: false,
@@ -36,6 +36,7 @@ Page({
   isFree: 1,
   userAttribute: {},
   continueHeartBeat: true,
+  isIMLoginFailFlag: false,
   isHangupFlag: false,
   roomId: null,
   teacherUserId: null,
@@ -109,6 +110,7 @@ Page({
       return
     }
 
+    // 被动挂断
     let data = this.data,
       seconds = this.startTime ? (+new Date() - this.startTime) / 1000 : 0,
       reqData = {
@@ -127,9 +129,11 @@ Page({
       },
       complete() {
         this.isHangupFlag = true
-        wx.reLaunch({
-          url: '../../../pages/index/index/index'
-        })
+        if (!this.isIMLoginFailFlag) {
+          wx.reLaunch({
+            url: '../../../pages/index/index/index'
+          })
+        }
       }
     })
   },
@@ -406,6 +410,17 @@ Page({
       MAX_TRY_LOGIN_IM--
     } else {
       console.error('IM 尝试登录三次均失败')
+      this.isIMLoginFailFlag = true
+      wx.showToast({
+        title: '需要先授权基本权限才能操作,...',
+        icon: 'none',
+        duration: 2000
+      })
+      setTimeout(() => {
+        wx.redirectTo({
+          url: `../../../pages/wx/authorize/authorize`,
+        })
+      }, 1000)
     }
   },
   /**
