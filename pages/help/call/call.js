@@ -194,7 +194,8 @@ Page({
   playerStatechange(e) {
     try {
       console.warn('live-player code:', e.detail.code)
-      if (e.detail.code == -2301) {
+      let stateCode = e.detail.code
+      if (stateCode == -2301 || stateCode == -2302 || stateCode == 3005) {
         console.warn('尝试连接live')
         let userLive = this.data.userLive
 
@@ -205,7 +206,7 @@ Page({
           this.setData({
             userLive: userLive
           })
-        }, 5000)
+        }, 80)
       }
     } catch (error) {
       console.error('playerStatechange error', error)
@@ -228,7 +229,7 @@ Page({
           this.setData({
             teachPusher: teachPusher
           })
-        }, 5000)
+        }, 80)
       }
     } catch (error) {
       console.error('pusherStatechange: ', error)
