@@ -77,7 +77,7 @@ Page({
               app.globalData.userAttribute = res.data.userAttribute
               wx.setStorageSync('userAttribute', res.data.userAttribute)
 
-              clearTimeout(this.timeout)
+              // clearTimeout(this.timeout)
               wx.reLaunch({
                 url: '../../../' + that.redirectUrl
               })

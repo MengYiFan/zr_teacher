@@ -12,11 +12,27 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cameraContext: null,
     teachPusher: null,
     userLive: null,
     controler: {
       muted: false,
-      enableCamera: true
+      enableCamera: true,
+      mode: "HD",
+      backgroundMute: false,
+      orientation: "vertical",
+      beauty: 6.3,
+      whiteness: 3.0,
+      debug: false,
+    },
+    //
+    playerConf: {
+      orientation: 'vertical',
+      objectFit: "contain",
+      muted: false,
+      backgroundMuted: false,
+      debug: false,
+      fullScreen: false,
     },
     isShowForm: false,
     connectionFlag: false,
@@ -28,8 +44,10 @@ Page({
     caseId: null,
     nick: '',
     avatar: '',
-    options: {}
+    options: {},
+    idHangupFlag: false
   },
+  callIsLinking: false,
   USER_DATA: {},
   TIME: 20,
   CYCLE: 5,
@@ -42,6 +60,8 @@ Page({
   teacherUserId: null,
   startTime: 0,
   options: null,
+  userLive: '',
+  teachPusher: '',
   // V3
   getPusherHandle() {
     getPusher({
@@ -53,6 +73,8 @@ Page({
             teachPusher: res.msg
           })
           console.warn('teachPusher', res.msg)
+          setTimeout(() => this.data.cameraContext.start(), 0)
+          this.callIsLinking = true
           if (this.options.type == 'all') {
             this.teacherHelpLinkHandle()
           } else {
@@ -72,6 +94,11 @@ Page({
   },
   // 挂断
   bindCallHangupTap(e, caseId, type) {
+    if (this.isHangupFlag) {
+      return
+    }
+    this.isHangupFlag = true
+
     if (type != 'initiative' || !type) {// 主动发起
       let data = this.data,
         seconds = this.startTime ? (+new Date() - this.startTime) / 1000 : 0,
@@ -192,22 +219,24 @@ Page({
   },
   // 状态码
   playerStatechange(e) {
+    if (!this.userLive) {
+      this.userLive = this.data.userLive
+    }
     try {
-      console.warn('live-player code:', e.detail.code)
-      let stateCode = e.detail.code
-      if (stateCode == -2301 || stateCode == -2302 || stateCode == 3005) {
-        console.warn('尝试连接live')
-        let userLive = this.data.userLive
-
-        this.setData({
-          userLive: ''
-        })
-        setTimeout(() => {
-          this.setData({
-            userLive: userLive
-          })
-        }, 80)
-      }
+      console.info('live-player code:', e.detail.code)
+      console.info('userLive:', this.userLive)
+      // let stateCode = e.detail.code
+      // if (stateCode == -2301 || stateCode == -2302) {
+      //   console.warn('尝试连接live')
+      //   this.setData({
+      //     userLive: ''
+      //   })
+      //   setTimeout(() => {
+      //     this.setData({
+      //       userLive: this.userLive
+      //     })
+      //   }, 2000)
+      // }
     } catch (error) {
       console.error('playerStatechange error', error)
     }
@@ -216,21 +245,23 @@ Page({
     console.error('live-player error:', e.detail.errMsg)
   },
   pusherStatechange(e) {
-    console.warn('live-pusher code:', e.detail && e.detail.code || 'null')
+    if (!this.teachPusher) {
+      this.teachPusher = this.data.teachPusher
+    }
+    console.info('live-pusher code:', e.detail && e.detail.code || 'null')
+    console.info('teachPusher:', this.teachPusher)
     try {
-      if (e.detail.code == -1307) {
-        console.warn('尝试连接pusher', e.detail.code)
-        let teachPusher = this.data.teachPusher
-  
-        this.setData({
-          teachPusher: ''
-        })
-        setTimeout(() => {
-          this.setData({
-            teachPusher: teachPusher
-          })
-        }, 80)
-      }
+      // if (e.detail.code == -1307) {
+      //   console.warn('尝试连接pusher', e.detail.code)  
+      //   this.setData({
+      //     teachPusher: ''
+      //   })
+      //   setTimeout(() => {
+      //     this.setData({
+      //       teachPusher: this.teachPusher
+      //     })
+      //   }, 2000)
+      // }
     } catch (error) {
       console.error('pusherStatechange: ', error)
     }
@@ -332,6 +363,9 @@ Page({
           // console.log(reg.exec(data.teachPusher)[0])
           // console.log(reg2.exec(data.userLive)[0])
         } else {
+          if (this.callIsLinking) {
+            return
+          }
           if (res.code == '1200' && res.msg == '0') {
             console.log('被抢了')
             teacherHelpLinkFail({
@@ -428,7 +462,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.setData({
+      cameraContext: wx.createLivePusherContext('camera-push')
+    })
   },
 
   /**

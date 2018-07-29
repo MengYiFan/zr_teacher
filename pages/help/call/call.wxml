@@ -12,31 +12,35 @@
   </form>
   <view class="call-container">
     <view class="call-live">
-    <!-- <live-player 
-        class="call-live-player"
-        src="rtmp://20200.liveplay.myqcloud.com/live/20200_teach2372" 
-        mode="RTC" autoplay 
-        bindstatechange="playerStatechange" 
-        binderror="error" />
-      <live-pusher 
-        url="rtmp://20200.livepush.myqcloud.com/live/20200_user1?bizid=20200&txSecret=0f9fe97b02beec57fb30ffa22557605c&txTime=5AA5CC61"  -->
-
       <!-- 收 -->
       <live-player 
+        id="video-livePlayer"
         class="call-live-player"
         src="{{userLive}}"
-        min-cache="0.1"
-        max-cache="0.3"
         debug="{{true}}" 
-        mode="RTC" autoplay />
+        mode="RTC" autoplay 
+        debug="{{playerConf.debug}}"
+        muted="{{playerConf.muted}}"
+        background-mute="{{playerConf.backgroundMute}}"
+        orientation="{{playerConf.orientation}}"
+        object-fit="{{playerConf.objectFit}}"
+        bindstatechange="playerStatechange" 
+        binderror="playerError" />
       <!-- 发 -->
       <live-pusher 
-        audio-quality="high"
-        debug="{{true}}"
+        id="camera-push"
+        class="camera-push"
+        debug="{{controler.debug}}"
         url="{{teachPusher}}"
         mode="RTC" autopush
         enable-camera="{{controler.enableCamera}}"
-        muted="{{controler.muted}}" />
+        muted="{{controler.muted}}"
+        orientation="{{controler.orientation}}"
+        beauty="{{controler.beauty}}"
+        whiteness="{{controler.whiteness}}"
+        background-mute="{{controler.backgroundMute}}"
+        bindstatechange="pusherStatechange"
+        waiting-image="https://mc.qcloudimg.com/static/img/daeed8616ac5df256c0591c22a65c4d3/pause_publish.jpg"/>
     </view>
     <view class="call-list">
       <view class="call-teacher-info">
