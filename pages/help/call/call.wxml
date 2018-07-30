@@ -12,35 +12,42 @@
   </form>
   <view class="call-container">
     <view class="call-live">
+      <!-- 发 -->
+      <live-pusher 
+        wx:if="{{teachPusher}}"
+        id="camera-push"
+        class="camera-push"
+        autopush
+        mode="RTC"
+        url="{{teachPusher}}"
+        aspect="{{controler.aspect}}"
+        min-bitrate="{{controler.minBitrate}}"
+        max-bitrate="{{controler.maxBitrate}}"
+        audio-quality="high"
+        beauty="{{controler.beauty}}"
+        muted="{{controler.muted}}"
+        waiting-image="https://mc.qcloudimg.com/static/img/daeed8616ac5df256c0591c22a65c4d3/pause_publish.jpg"
+        background-mute="{{true}}"
+        debug="{{controler.debug}}"
+        bindstatechange="pusherStatechange"
+        binderror="playerError">
+        </live-pusher>
       <!-- 收 -->
       <live-player 
         id="video-livePlayer"
         class="call-live-player"
+        autoplay
+        mode="RTC" 
+        wx:if="{{userLive}}"
+        object-fit="{{fillCrop}}"
+        min-cache="0.1"
+        max-cache="0.3"
         src="{{userLive}}"
-        debug="{{true}}" 
-        mode="RTC" autoplay 
-        debug="{{playerConf.debug}}"
-        muted="{{playerConf.muted}}"
-        background-mute="{{playerConf.backgroundMute}}"
-        orientation="{{playerConf.orientation}}"
-        object-fit="{{playerConf.objectFit}}"
+        debug="{{playerConf.debug}}" 
+        background-mute="{{true}}"
         bindstatechange="playerStatechange" 
-        binderror="playerError" />
-      <!-- 发 -->
-      <live-pusher 
-        id="camera-push"
-        class="camera-push"
-        debug="{{controler.debug}}"
-        url="{{teachPusher}}"
-        mode="RTC" autopush
-        enable-camera="{{controler.enableCamera}}"
-        muted="{{controler.muted}}"
-        orientation="{{controler.orientation}}"
-        beauty="{{controler.beauty}}"
-        whiteness="{{controler.whiteness}}"
-        background-mute="{{controler.backgroundMute}}"
-        bindstatechange="pusherStatechange"
-        waiting-image="https://mc.qcloudimg.com/static/img/daeed8616ac5df256c0591c22a65c4d3/pause_publish.jpg"/>
+        muted="{{playerConf.muted}}">
+        </live-player>
     </view>
     <view class="call-list">
       <view class="call-teacher-info">

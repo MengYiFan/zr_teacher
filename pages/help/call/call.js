@@ -18,19 +18,21 @@ Page({
     controler: {
       muted: false,
       enableCamera: true,
-      mode: "HD",
-      backgroundMute: false,
+      backgroundMute: true,
       orientation: "vertical",
       beauty: 6.3,
       whiteness: 3.0,
       debug: false,
+      minBitrate: 200,
+      maxBitrate: 400,
+      aspect: '3:4'
     },
     //
     playerConf: {
       orientation: 'vertical',
-      objectFit: "contain",
+      objectFit: "fillCrop",
       muted: false,
-      backgroundMuted: false,
+      backgroundMuted: true,
       debug: false,
       fullScreen: false,
     },
