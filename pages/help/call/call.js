@@ -23,8 +23,8 @@ Page({
       beauty: 6.3,
       whiteness: 3.0,
       debug: false,
-      minBitrate: 200,
-      maxBitrate: 400,
+      minBitrate: 100,
+      maxBitrate: 200,
       aspect: '3:4'
     },
     //
@@ -186,6 +186,7 @@ Page({
             teachPusher: res.data[0].pushURL
           })
         }
+        wx.vibrateLong()
         console.info('teachPusher!!!', this.data.teachPusher, '@userLive@', this.data.userLive)
         this.heartbeat()
       }
@@ -292,6 +293,7 @@ Page({
       this.setData({
         userLive: options.userPlayer
       })
+      wx.vibrateLong()
       console.warn('userLive', options.userPlayer)
     }
     console.info('options: ', options, this.roomId)
@@ -467,6 +469,10 @@ Page({
     this.setData({
       cameraContext: wx.createLivePusherContext('camera-push')
     })
+
+    wx.setKeepScreenOn({
+      keepScreenOn: true,
+    })
   },
 
   /**
@@ -495,6 +501,12 @@ Page({
       this.bindCallHangupTap(null, null, 'initiative')
     }
     this.continueHeartBeat = false
+
+    wx.setKeepScreenOn({
+      keepScreenOn: false,
+    })
+
+    this.data.cameraContext.stop()
   },
 
   /**
