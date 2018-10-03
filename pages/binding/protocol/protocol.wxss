@@ -1,0 +1,18 @@
+/* pages/binding/notice/notice.wxss */
+.protocol-img {
+  width: 750rpx;
+  height: 1334rpx;
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.protocol-imgs .protocol-img:last-child {
+  height: 400rpx;
+}
+
+.agree-protocol {
+  width:100%;
+  padding:30rpx;
+  box-sizing:border-box;
+}

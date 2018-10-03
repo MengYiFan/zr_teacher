@@ -8,7 +8,8 @@
     "pages/help/call/call",
     "pages/user/attention/attention",
     "pages/wx/authorize/authorize",
-    "pages/user/income/income"
+    "pages/user/income/income",
+    "pages/binding/protocol/protocol"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,15 @@
+<!--pages/binding/notice/notice.wxml-->
+<view>
+  <view class="protocol-imgs">
+    <image wx:for="{{protocolImages}}" wx:key="{{index}}"
+           class="protocol-img" 
+           src="../../../images/protocol/{{item}}"></image>
+  </view>
+  <view class="agree-protocol">
+    <button
+        bindtap="bindAgreeProtocolTap" 
+        class="common-btn">
+      同意协议，并下一步      
+    </button>
+  </view>
+</view>
