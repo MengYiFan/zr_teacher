@@ -64,6 +64,8 @@ Page({
   options: null,
   userLive: '',
   teachPusher: '',
+  liveStatus: false,
+  pusherStatus: false,
   // V3
   getPusherHandle() {
     getPusher({
@@ -100,6 +102,14 @@ Page({
       return
     }
     this.isHangupFlag = true
+
+    if (!this.data.canHangupFlag) {
+      wx.redirectTo({
+        url: '../../../pages/index/index/index'
+      })
+
+      return
+    }
 
     if (type != 'initiative' || !type) {// 主动发起
       let data = this.data,
@@ -228,7 +238,16 @@ Page({
     try {
       console.info('live-player code:', e.detail.code)
       console.info('userLive:', this.userLive)
-      // let stateCode = e.detail.code
+
+      let statusCode = e.detail.code
+      if (statusCode == 2002) {
+        this.liveStatus = true
+        if (this.pusherStatus) {
+          this.setData({
+            canHangupFlag: true
+          })
+        }
+      }
       // if (stateCode == -2301 || stateCode == -2302) {
       //   console.warn('尝试连接live')
       //   this.setData({
@@ -254,6 +273,14 @@ Page({
     console.info('live-pusher code:', e.detail && e.detail.code || 'null')
     console.info('teachPusher:', this.teachPusher)
     try {
+      if (e.detail.code == 1002) {
+        this.pusherStatus = true
+        if (this.liveStatus) {
+          this.setData({
+            canHangupFlag: true
+          })
+        }
+      }
       // if (e.detail.code == -1307) {
       //   console.warn('尝试连接pusher', e.detail.code)  
       //   this.setData({
@@ -345,27 +372,6 @@ Page({
             connectionFlag: true
           })
           this.startTime = +(new Date())
-          // this.enterRoom()
-          // var data = res.data,
-          //     reg = new RegExp('http:\/\/.+\.flv', 'gi'),
-          //     reg2 = new RegExp('http:\/\/.+\.flv', 'gi')
-
-
-          // let fa = data.teachPusher.replace(/[\'\"]/g, '').split('|')[0].trim(),
-          //     shou = data.userLive.replace(/[\'\"]/g, '').split('|')[1].split(',')[0].slice(6).replace('}', '').trim()
-          // console.info('userLive播放地址: ', fa, ';;@@@teachPusher播放地址: ', shou)
-          // this.setData({
-          //   subjectIds: data.caseId || 0,
-          //   canHangupFlag: true,
-          //   teachPusher: fa, 
-          //   userLive: shou
-          // })
-          // this.setData({
-          //   teachPusher: reg.exec(data.teachPusher)[0],
-          //   userLive: reg2.exec(data.userLive)[0]
-          // })
-          // console.log(reg.exec(data.teachPusher)[0])
-          // console.log(reg2.exec(data.userLive)[0])
         } else {
           if (this.callIsLinking) {
             return
@@ -424,7 +430,8 @@ Page({
           this.roomId = msgArr[1]
           this.teacherUserId = msgArr[2]
           this.setData({
-            roomId: msgArr[1]
+            roomId: msgArr[1],
+            canHangupFlag: true
           })
         }
         if (msgArr[0] == '02') {
@@ -432,14 +439,6 @@ Page({
           this.caseId = msgArr[2]
           this.bindCallHangupTap(null, this.caseId, 'passivity')
         }
-
-        // let msgArr = msg.split('||'),
-        //   index = msgArr.length - 1
-
-        // this.setData({
-        //   userLive: msgArr[index]
-        // })
-        // console.warn('地址信息', this.data)
       }
     })
   },
