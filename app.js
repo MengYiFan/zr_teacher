@@ -91,7 +91,7 @@ App({
               wx.setStorageSync('userAttribute', userAttribute)
               if (!userAttribute.userMobile && !wx.getStorageSync('teacherMobile')) {
                 wx.reLaunch({
-                  url: '/pages/binding/index/binding'
+                  url: '/pages/binding/protocol/protocol'
                 })
               } else {
                 wx.setStorageSync('teacherMobile', userAttribute.userMobile)

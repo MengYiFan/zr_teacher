@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 8,
 			"list": [
 				{
 					"id": 0,
@@ -79,6 +79,11 @@
 					"name": "wx authorize",
 					"pathName": "pages/wx/authorize/authorize",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "protocol",
+					"pathName": "pages/binding/protocol/protocol"
 				}
 			]
 		}
