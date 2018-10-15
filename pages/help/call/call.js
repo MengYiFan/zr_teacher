@@ -47,7 +47,8 @@ Page({
     nick: '',
     avatar: '',
     options: {},
-    idHangupFlag: false
+    idHangupFlag: false,
+    failFormMsg: '抱歉, 该单已被其他老师抢占...',
   },
   callIsLinking: false,
   USER_DATA: {},
@@ -354,18 +355,16 @@ Page({
   teacherHelpLinkHandle() {
     let options = this.options,
       that = this
-    console.warn('teacherHelpLinkHandle options@@@', options)
+
     teacherHelpLink({
       data: Object.assign(options, {
         pushUrl: this.data.teachPusher
       }),
       success: res => {
-        console.warn('teacherHelpLinkHandle res: ', res)
         if (res.code == '1000') {
           this.setData({
             userLive: res.data.userAccelerateUrl
           })
-          console.warn('userLive', res.data.userAccelerateUrl)
           wx.vibrateLong()
           this.heartbeat()
           this.setData({
@@ -373,21 +372,36 @@ Page({
           })
           this.startTime = +(new Date())
         } else {
-          if (this.callIsLinking) {
-            return
-          }
-          if (res.code == '1200' && res.msg == '0') {
-            console.log('被抢了')
-            teacherHelpLinkFail({
-              method: 'get',
-              success: res => {
-                if (res.code == '1000') {
-                  that.setData({
-                    isShowForm: true
-                  })
-                }
-              }
-            }, wx.getStorageSync('userId'))
+          // getPusher is not state, so cancel
+          // if (this.callIsLinking) {
+          //   return
+          // }
+          let failFormMsg = '服务器暂忙，请稍后。'
+          if (res.code == '1200') {
+            if (res.msg == '0') {
+              failFormMsg = '抱歉, 该单已被其他老师抢占...'
+            } else if (res.msg == '-1') {
+              failFormMsg = '错误请求，异常请求'
+            } else if (res.msg == '-2') {
+              failFormMsg = '此通话非可接通状态'
+            }
+            this.setData({
+              isShowForm: true,
+              failFormMsg
+            })
+            
+            // teacherHelpLinkFail 弃用
+            // teacherHelpLinkFail({
+            //   method: 'get',
+            //   success: res => {
+            //     if (res.code == '1000') {
+            //       that.setData({
+            //         isShowForm: true,
+            //         failFormMsg: '抱歉, 该单已被其他老师抢占...'
+            //       })
+            //     }
+            //   }
+            // }, wx.getStorageSync('userId'))
           }
         }
       }

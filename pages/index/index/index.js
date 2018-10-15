@@ -113,6 +113,11 @@ Page({
       },
       success: res => {
         if (res.code == '1000') {
+          // 老师类型 
+          // N 免费 Y 收费
+          app.globalData.userAttribute = res.data.teacherTypeCode
+          wx.setStorageSync('userAttribute', res.data.teacherTypeCode)
+
           this.setData({
             onlineFlag: res.data.isOnline
           })
