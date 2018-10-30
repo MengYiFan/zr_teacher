@@ -115,8 +115,8 @@ Page({
         if (res.code == '1000') {
           // 老师类型 
           // N 免费 Y 收费
-          app.globalData.userAttribute = res.data.teacherTypeCode
-          wx.setStorageSync('userAttribute', res.data.teacherTypeCode)
+          app.globalData.teacherTypeCode = res.data.teacherTypeCode
+          wx.setStorageSync('teacherTypeCode', res.data.teacherTypeCode)
 
           this.setData({
             onlineFlag: res.data.isOnline

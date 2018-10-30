@@ -81,10 +81,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let userAttribute = app.globalData.userAttribute || wx.getStorageSync('userAttribute')
+    let userAttribute = app.globalData.userAttribute || wx.getStorageSync('userAttribute'),
+        teacherTypeCode = app.globalData.teacherTypeCode || wx.getStorageSync('teacherTypeCode') || userAttribute.teacherTypeCode
     // N 免费 Y 收费
-    console.warn(userAttribute)
-    if (userAttribute.teacherTypeCode == 'Y') {
+    console.warn(teacherTypeCode)
+    if (teacherTypeCode == 'Y') {
       getFeeQus({
         method: 'get',
         success: (res) => {
