@@ -140,6 +140,8 @@ Page({
             wx.setStorageSync('userAttribute', res.data)
             wx.setStorageSync('teacherMobile', data.userMobile)
             wx.setStorageSync('userInfoData', userInfoData)
+            wx.setStorageSync('userMobile', data.userMobile)
+
             setTimeout(() => {
               wx.redirectTo({
                 url: '../../../pages/index/index/index',

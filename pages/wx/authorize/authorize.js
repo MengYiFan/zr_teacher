@@ -68,19 +68,29 @@ Page({
           },
           success: res => {
             if (res.code == '1000') {
-              app.globalData.userId = res.data.userId
-              app.globalData.userData = res.data
-              wx.setStorageSync('userId', res.data.userId)
-              wx.setStorageSync('userData', res.data)
-              wx.setStorageSync('userMobile', res.data.userMobile
-                || res.data.userAttribute && res.data.userAttribute.userMobile)
-              app.globalData.userAttribute = res.data.userAttribute
-              wx.setStorageSync('userAttribute', res.data.userAttribute)
+              let data = res.data
+              app.globalData.userId = data.userId
+              app.globalData.userData = data
 
+              let userAttribute = data.userAttribute
+              wx.setStorageSync('userId', data.userId)
+              wx.setStorageSync('userData', data)
+              wx.setStorageSync('userAttribute', userAttribute)
+              app.globalData.userAttribute = userAttribute
+
+              if (!userAttribute.userMobile && !wx.getStorageSync('teacherMobile')) {
+                wx.reLaunch({
+                  url: '/pages/binding/protocol/protocol'
+                })
+              } else {
+                wx.setStorageSync('userMobile', data.userMobile
+                  || userAttribute && userAttribute.userMobile)
+                wx.setStorageSync('teacherMobile', userAttribute.userMobile)
+                wx.reLaunch({
+                  url: '../../../' + that.redirectUrl
+                })
+              }
               // clearTimeout(this.timeout)
-              wx.reLaunch({
-                url: '../../../' + that.redirectUrl
-              })
             }
           }
         })
